@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+from pypinyin import lazy_pinyin
+
 def generator_chinese():
     for line in open('./data/input/ref_word.txt'):
         line = line.strip()
@@ -24,6 +26,21 @@ def generator_error_pinyin():
         with open('./data/output/pinyin_error.txt', 'a') as pinyin_error_file:
             pinyin_error_file.write(line_out)
             pinyin_error_file.write('\n')
+
+def generator_true_pinyin():
+    for line in open('./data/output/chinese.txt'):
+        pinyin_line = []
+        for i in range(len(line)):
+            if i % 2 == 0:
+                pinyin_line.append(''.join(lazy_pinyin(line[i])))
+        pinyin_line_out = ' '.join(pinyin_line)
+        with open('./data/output/pinyin_true.txt', 'a') as pinyin_true_file:
+            pinyin_true_file.write(pinyin_line_out)
+            pinyin_true_file.write('\n')
+
+
+
+
 
 
 
